@@ -13,7 +13,8 @@ class DepartementController extends Controller
     // ------------- AFFICHAGE DEPARTEMENT : GET --------------
     public function index() {
         $departements = Departement::paginate(10);
-        return view('departements.index', compact('departements'));
+        $i = 1;
+        return view('departements.index', compact('departements', 'i'));
     }
 
     public function create() {

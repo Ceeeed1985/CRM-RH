@@ -51,7 +51,7 @@
                         <tbody>
                             @forelse ($departements as $departement)
                                 <tr>
-                                    <td class="cell">{{ $departement->id }}</td>
+                                    <td class="cell">{{ $i++ }}</td>
                                     <td class="cell"><span class="truncate">{{ $departement->name }}</span></td>
                                     <td class="cell d-flex">
                                         <a class="btn-sm btn btn-primary" href="{{ route('departement.edit', $departement->id) }}">Modifier</a>
@@ -64,7 +64,7 @@
                                 </tr>  
                             @empty
                                 <tr>
-                                    <td class="cell" colspan="4">Aucun Département ajouté</td>
+                                    <td class="cell" colspan="4">Aucun département ajouté</td>
                                 </tr>
                             @endforelse
                         </tbody>

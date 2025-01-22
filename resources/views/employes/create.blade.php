@@ -19,6 +19,9 @@
                         <label for="setting-input-3" class="form-label">Département</label>
                         <select name="departement_id" id="departement_id" class="form-control">
                             <option value=""></option>
+                            @foreach ($departements as $departement)
+                                <option value="{{ $departement->id }}">{{ $departement->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
@@ -37,6 +40,10 @@
                     <div class="mb-3">
                         <label for="setting-input-3" class="form-label">Contact</label>
                         <input type="text" class="form-control" id="setting-input-3" name="contact" placeholder="Entrez le numéro de téléphone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="setting-input-3" class="form-label">Montant journalier</label>
+                        <input type="number" class="form-control" id="setting-input-3" name="montant_journalier" placeholder="Entrez le montant journalier">
                     </div>
                     <button type="submit" class="btn app-btn-primary" >Enregistrer</button>
                 </form>
