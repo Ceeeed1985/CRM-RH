@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     public function index() {
-        return view('employes.index');
+        $employes = Employee::paginate(10);
+        return view('employes.index', compact('employes'));
     }
 
     public function create() {
