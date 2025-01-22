@@ -71,12 +71,12 @@
                         <tbody>
                             @forelse ($employes as $employe)
                                 <tr>
-                                    <td class="cell">{{ $employes->id }}</td>
-                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                    <td class="cell">John Sanders</td>
-                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                    <td class="cell">$259.35</td>
+                                    <td class="cell">{{ $i++ }}</td>
+                                    <td class="cell"><span class="truncate">{{ $employe->nom }}</span></td>
+                                    <td class="cell">{{ $employe->prenom }}</td>
+                                    <td class="cell">{{ $employe->email }}</td>
+                                    <td class="cell">{{ $employe->contact }}</td>
+                                    <td class="cell"> {{ $employe->montant_journalier }}</td>
                                     <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
                                 </tr>  
                             @empty
@@ -124,15 +124,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($employes as $employee)
                             <tr>
-                                <td class="cell">#15346</td>
-                                <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
+                                <td class="cell">#{{ $i++ }}</td>
+                                <td class="cell"><span class="truncate">{{ $employee->name }}</span></td>
                                 <td class="cell">John Sanders</td>
                                 <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
                                 <td class="cell"><span class="badge bg-success">Paid</span></td>
                                 <td class="cell">$259.35</td>
                                 <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
                             </tr>
+                            @endforeach
                             
                             <tr>
                                 <td class="cell">#15344</td>

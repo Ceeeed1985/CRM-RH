@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('email', 255);
+            $table->string('email');
             $table->string('contact');
             $table->unsignedBigInteger('departement_id');
             $table->foreign('departement_id')->references('id')->on('departements');
