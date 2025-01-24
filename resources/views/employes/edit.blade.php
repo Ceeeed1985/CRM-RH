@@ -19,7 +19,8 @@
                         <label for="setting-input-3" class="form-label">Département</label>
                         <select name="departement_id" id="departement_id" class="form-control">
                             @foreach ($departements as $departement)
-                                <option value="{{ $departement->id }}" {{ $employe->departement->id === $departement->id ? 'selected' : '' }}>{{ $departement->name }}</option>
+                                {{-- <option value="{{ $departement->id }}" {{ $employe->departement->id === $departement->id ? 'selected' : '' }}>{{ $departement->name }}</option> --}}
+                                <option value="{{ $departement->id }}" {{ isset($employe->departement) && $employe->departement->id === $departement->id ? 'selected' : '' }}>{{ $departement->name }}</option>
                             @endforeach
                         </select>
                         @error('departement_id')

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployeController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/edit/{departement}', [DepartementController::class, 'edit'])->name('departement.edit');
         Route::put('/udpate/{departement}', [DepartementController::class, 'update'])->name('departement.update');
         Route::delete('/delete/{departement}', [DepartementController::class, 'delete'])->name('departement.delete');
+    });
+
+    Route::prefix('configurations')->group(function(){
+        Route::get('/', [ConfigurationController::class, 'index'])->name('configurations');
+        Route::get('/create', [ConfigurationController::class, 'create'])->name('configurations.create');
+        Route::post('/store', [ConfigurationController::class, 'store'])->name('configurations.store');
+        Route::delete('/delete/{configuration}', [ConfigurationController::class, 'delete'])->name('configurations.delete');
     });
 
 
