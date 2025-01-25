@@ -56,16 +56,16 @@
             <div class="app-card-body">
                 <div class="table-responsive">
                     <table class="table app-table-hover mb-0 text-left">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
-                                <th class="cell">#</th>
-                                <th class="cell">Département</th>
-                                <th class="cell">Nom</th>
-                                <th class="cell">Prénom</th>
-                                <th class="cell">Email</th>
-                                <th class="cell">contact</th>
-                                <th class="cell">Salaire</th>
-                                <th class="cell">Actions</th>
+                                <th class="cell text-white">#</th>
+                                <th class="cell text-white">Département</th>
+                                <th class="cell text-white">Nom</th>
+                                <th class="cell text-white">Prénom</th>
+                                <th class="cell text-white">Email</th>
+                                <th class="cell text-white">contact</th>
+                                <th class="cell text-white">Salaire</th>
+                                <th class="cell text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,13 +77,13 @@
                                     <td class="cell">{{ $employe->prenom }}</td>
                                     <td class="cell">{{ $employe->email }}</td>
                                     <td class="cell">{{ $employe->contact }}</td>
-                                    <td class="cell"><span class="badge bg-success"> {{ $employe->montant_journalier * 31 }} euros</span></td>
+                                    <td class="cell"><span class="badge bg-info"> {{ $employe->montant_journalier * 31 }} euros</span></td>
                                     <td class="cell d-flex">
-                                        <a class="btn-sm btn btn-primary" href="{{ route('employe.edit', $employe->id) }}">Modifier</a>
+                                        <a class="btn btn-sm btn-outline-primary border border-primary" href="{{ route('employe.edit', $employe->id) }}">Modifier</a>
                                         <form method ='POST' action="{{ route('employe.delete', $employe->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type='submit' class="btn-sm btn btn-danger" style='margin-left:5px'>Supprimer</button>
+                                            <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'>Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>  

@@ -2,7 +2,22 @@
 
 @section('content')
     <h1 class="app-page-title">Dashboard</h1>
-                    
+    
+    <div class="row mt-2 mb-2">
+        @if ($paymentNotificationSuccess)
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ $paymentNotificationSuccess }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @else
+            <div class="alert alert-warning alert-dismissible fade show"><b>Attention : </b>
+                {{ $paymentNotificationWarning }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
+
     <div class="row g-4 mb-4">
         <div class="col-6 col-lg-3">
             <div class="app-card app-card-stat shadow-sm h-100">

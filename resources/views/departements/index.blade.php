@@ -41,24 +41,24 @@
             <div class="app-card-body">
                 <div class="table-responsive">
                     <table class="table app-table-hover mb-0 text-left">
-                        <thead>
+                        <thead class="bg-success">
                             <tr>
-                                <th class="cell">#</th>
-                                <th class="cell">Nom</th>
-                                <th class="cell">Actions</th>
+                                <th class="cell text-white">#</th>
+                                <th class="cell text-white">Nom</th>
+                                <th class="cell text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($departements as $departement)
                                 <tr>
                                     <td class="cell">{{ $i++ }}</td>
-                                    <td class="cell"><span class="truncate">{{ $departement->name }}</span></td>
+                                    <td class="cell"><span>{{ $departement->name }}</span></td>
                                     <td class="cell d-flex">
-                                        <a class="btn-sm btn btn-primary" href="{{ route('departement.edit', $departement->id) }}">Modifier</a>
+                                        <a class="btn btn-sm btn-outline-primary border border-primary" href="{{ route('departement.edit', $departement->id) }}">Modifier</a>
                                         <form method ='POST' action="{{route('departement.delete', $departement->id)}}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type='submit' class="btn-sm btn btn-danger" style='margin-left:5px'>Supprimer</button>
+                                            <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'>Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>  

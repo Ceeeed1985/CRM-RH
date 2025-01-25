@@ -60,18 +60,35 @@
                             @forelse ($allConfigurations as $config)
                                 <tr>
                                     <td class="cell">{{ $i++ }}</td>
-                                    <td class="cell"><span class="truncate">{{ $config->type }}</span></td>
+                                    <td class="cell">
+                                        @switch($config->type)
+                                            @case('PAYMENT_DATE')
+                                                <span class="truncate">Date mensuelle de paiement</span>
+                                                @break
+                                            @case('APP_NAME')
+                                                <span class="truncate">Nom de l'application</span>
+                                                @break
+                                            @case('DEVELOPPER_NAME')
+                                                <span class="truncate">Equipe de développement</span>
+                                                @break
+                                            @case('ANOTHER')
+                                                <span class="truncate">Autre configuration</span>
+                                                @break
+                                            @default
+                                                <span class="truncate">{{ $config->type }}</span>
+                                        @endswitch
+                                    </td>
                                     <td class="cell items-center">
                                         <span class="truncate">{{ $config->value }}</span>
                                         @if ($config->type === 'PAYMENT_DATE')
-                                            <span class="px-2">de chaque mois</span>
+                                            <span class="truncate">de chaque mois</span>
                                         @endif
                                     </td>
-                                    <td class="cell d-flex">
+                                    <td>
                                         <form method ='POST' action="{{ route('configurations.delete', $config->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type='submit' class="btn-sm btn btn-danger" style='margin-left:5px'>Supprimer</button>
+                                            <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'>Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>  
