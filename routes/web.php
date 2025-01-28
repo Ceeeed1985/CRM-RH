@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -46,14 +47,18 @@ Route::middleware('auth')->group(function(){
         Route::delete('/delete/{configuration}', [ConfigurationController::class, 'delete'])->name('configurations.delete');
     });
 
-        Route::prefix('administrateurs')->group(function(){
-            Route::get('/', [AdminController::class, 'index'])->name('administrateurs');
-            Route::get('/create', [AdminController::class, 'create'])->name('administrateurs.create');
-            Route::post('/create', [AdminController::class, 'store'])->name('administrateurs.store');
-            Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
-            Route::put('/edit/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
-            Route::delete('/delete/{user}', [AdminController::class, 'delete'])->name('administrateurs.delete');
-        });
+    Route::prefix('administrateurs')->group(function(){
+        Route::get('/', [AdminController::class, 'index'])->name('administrateurs');
+        Route::get('/create', [AdminController::class, 'create'])->name('administrateurs.create');
+        Route::post('/create', [AdminController::class, 'store'])->name('administrateurs.store');
+        Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
+        Route::put('/edit/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
+        Route::delete('/delete/{user}', [AdminController::class, 'delete'])->name('administrateurs.delete');
+    });
         
+    Route::prefix('payment')->group(function(){
+        Route::get('/', [PaymentController::class, 'index'])->name('payments');
+        Route::get('/init', [PaymentController::class, 'initPayment'])->name('payment.init');
+    });
 });
 
