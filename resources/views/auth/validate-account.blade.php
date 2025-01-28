@@ -26,7 +26,14 @@
 
         <div class="champ">
             <label for="email">Adresse mail</label>
-            <input type="text" name="email" class="email" placeholder="Votre adresse mail" value='{{ $email }}' readonly/>
+            <input type="text" name="email" class="email" value='{{ $email }}' readonly/>
+        </div>
+        <div class="champ">
+            <label for="code">Code</label>
+            <input type="text" name="code" class="email" value="{{ old('code') }}" />
+            @error('code')
+                <span class="error">{{ $message }}</span>
+            @enderror
         </div>
         <div class="champ">
             <label for="password">Mot de passe</label>

@@ -49,6 +49,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if(Session::get('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ Session::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
 <div class="tab-content" id="orders-table-tab-content">
     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -59,12 +65,8 @@
                         <thead class="bg-success">
                             <tr>
                                 <th class="cell text-white">#</th>
-                                <th class="cell text-white">Département</th>
-                                <th class="cell text-white">Nom</th>
-                                <th class="cell text-white">Prénom</th>
+                                <th class="cell text-white">Nom complet</th>
                                 <th class="cell text-white">Email</th>
-                                <th class="cell text-white">contact</th>
-                                <th class="cell text-white">Salaire</th>
                                 <th class="cell text-white">Actions</th>
                             </tr>
                         </thead>
@@ -72,18 +74,19 @@
                             @forelse ($admins as $admin)
                                 <tr>
                                     <td class="cell">{{ $i++ }}</td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"><span class="badge bg-info"></span></td>
+                                    <td class="cell">{{ $admin->name }}</td>
+                                    <td class="cell">{{ $admin->email }}</td>
                                     <td class="cell d-flex">
-                                        <a class="btn btn-sm btn-outline-primary border border-primary" href="{{ route('employe.edit', $admin->id) }}">Modifier</a>
-                                        <form method ='POST' action="{{ route('employe.delete', $admin->id) }}">
+                                        {{-- <a class="btn btn-sm btn-outline-primary border border-primary" href="{{ route('employe.edit', $admin->id) }}">Modifier</a> --}}
+                                        <form method ='POST' action="{{ route('administrateurs.delete', $admin->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'>Supprimer</button>
+                                            <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                  </svg> Supprimer
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>  

@@ -13,6 +13,7 @@ use App\Models\ResetCodePassword;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\SendEmailToAdminAfterRegistrationNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -78,35 +79,58 @@ class AdminController extends Controller
     public function delete(User $user)
     {
         try {
-            // Logique de suppression en développement
+            $connectedAdmin = Auth::user()->id;
+            if($connectedAdmin !== $user->id){
+                $user->delete();
+                return redirect()->back()->with('success_message', "Cet administrateur a été supprimé de la liste des administrateurs avec succès !");
+            } else {
+                return redirect()->back()->with('error_message', "Vous ne pouvez pas supprimer votre compte. Veuillez demander à un autre administrateur pour exécuter votre demande!");
+            }
         } catch (Exception $e) {
             dd($e);
             throw new Exception("Une erreur est survenue lors de la suppression du compte de cet administrateur");
         }
     }
 
-    public function defineAccess($email){
+    public function defineAccess($email)
+    {
         $checkUserExist = User::where('email', $email)->first();
-        if($checkUserExist){
+        if ($checkUserExist) {
             return view('auth.validate-account', compact('email'));
-        }else{
+        } else {
             return redirect()->route('login');
-        };
+        }
     }
 
-    public function submitDefineAccess(submitDefineAccessRequest $request){
+    public function submitDefineAccess(submitDefineAccessRequest $request)
+    {
         try {
-        $user = User::where('email', $request->email)->first();
-            if($user){
+            // Vérifier que l'utilisateur existe
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                // Vérifier que le code est valide
+                $resetCode = ResetCodePassword::where('email', $request->email)
+                                            ->where('code', $request->code)
+                                            ->first();
+
+                if (!$resetCode) {
+                    return redirect()->back()->with('error_msg', 'Code invalide.');
+                }
+
+                // Mettre à jour l'utilisateur
                 $user->password = Hash::make($request->password);
                 $user->email_verified_at = Carbon::now();
                 $user->update();
+
+                // Supprimer le code de réinitialisation
+                $resetCode->delete();
+
                 return redirect()->route('login')->with('success_message', 'Vos accès ont été définis avec succès!');
             } else {
-                //route404
+                return redirect()->back()->with('error_msg', 'Utilisateur introuvable.');
             }
-        } catch(Exception $e){
-            dd($e);
+        } catch (Exception $e) {
+            return redirect()->back()->with('error_msg', 'Une erreur s\'est produite.');
         }
     }
 

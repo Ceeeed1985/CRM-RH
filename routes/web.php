@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function(){
             Route::post('/create', [AdminController::class, 'store'])->name('administrateurs.store');
             Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
             Route::put('/edit/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
-            Route::delete('/delete/{administrateur', [AdminController::class, 'delete'])->name('administrateurs.delete');
+            Route::delete('/delete/{user}', [AdminController::class, 'delete'])->name('administrateurs.delete');
         });
         
 });
