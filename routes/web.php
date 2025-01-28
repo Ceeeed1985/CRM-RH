@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationController;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/', [AuthController::class, 'handleLogin'])->name('handleLogin');
+
+Route::get('/validate-account/{email}', [AdminController::class, 'defineAccess']);
+Route::post('/validate-account/{email}', [AdminController::class, 'submitDefineAccess'])->name('submitDefineAccess');
+
 
 
 //ROUTES SECURISEES
@@ -41,6 +46,14 @@ Route::middleware('auth')->group(function(){
         Route::delete('/delete/{configuration}', [ConfigurationController::class, 'delete'])->name('configurations.delete');
     });
 
-
+        Route::prefix('administrateurs')->group(function(){
+            Route::get('/', [AdminController::class, 'index'])->name('administrateurs');
+            Route::get('/create', [AdminController::class, 'create'])->name('administrateurs.create');
+            Route::post('/create', [AdminController::class, 'store'])->name('administrateurs.store');
+            Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
+            Route::put('/edit/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
+            Route::delete('/delete/{administrateur', [AdminController::class, 'delete'])->name('administrateurs.delete');
+        });
+        
 });
 

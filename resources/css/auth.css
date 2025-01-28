@@ -129,3 +129,13 @@ button {
     font-style: italic;
     padding-bottom: -30px;
 }
+
+.success {
+    order: 4;
+    align-self: flex-start;
+    padding-left: 2em;
+    font-size: 0.7em;
+    color: rgb(80, 180, 88);
+    font-style: italic;
+    padding-bottom: -30px;
+}

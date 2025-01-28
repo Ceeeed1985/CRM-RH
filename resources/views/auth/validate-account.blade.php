@@ -12,28 +12,38 @@
 
 
 
-<form method="post" action="{{ route('handleLogin') }}">
+<form method="post" action="{{ route('submitDefineAccess', $email) }}">
     @csrf
     @method('POST')
 
     <div class="box">
-        <h1>Espace de connexion</h1>
+        <h1>Définissez vos accès</h1>
         @if (Session::get('error_msg'))
             <span class='error'>* {{ Session::get('error_msg') }}</span>
         @endif
-        @if (Session::get('success_message'))
-            <span class='success'>* {{ Session::get('success_message') }}</span>
-        @endif
+
+        
+
         <div class="champ">
             <label for="email">Adresse mail</label>
-            <input type="email" name="email" class="email" placeholder="Votre adresse mail" />
+            <input type="text" name="email" class="email" placeholder="Votre adresse mail" value='{{ $email }}' readonly/>
         </div>
         <div class="champ">
             <label for="password">Mot de passe</label>
             <input type="password" name="password" class="email" placeholder="Votre mot de passe" />
+            @error('password')
+                <span class="error">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="champ">
+            <label for="confirm_password">Mot de passe de confirmation</label>
+            <input type="password" name="confirm_password" class="email" placeholder="Votre mot de passe de confirmation" />
+            @error('confirm_password')
+                <span class="error">{{ $message }}</span>
+            @enderror
         </div>
         <div class="btn-container">
-            <button type="submit">Connexion</button>
+            <button type="submit">Valider</button>
         </div>
     </div>
 </form>
