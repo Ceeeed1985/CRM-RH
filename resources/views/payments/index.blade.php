@@ -30,6 +30,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if(Session::get('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ Session::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
 @if(!$isPaymentDay)
     <div class="alert alert-info alert-dismissible fade show">
@@ -52,7 +58,7 @@
                                 <th class="cell text-white">Date de transaction</th>
                                 <th class="cell text-white">Mois</th>
                                 <th class="cell text-white">Année</th>
-                                <th class="cell text-white">Statut</th>
+                                <th class="cell text-white">Status</th>
                                 <th class="cell text-white">Actions</th>
                             </tr>
                         </thead>
@@ -60,20 +66,20 @@
                             @forelse ($payments as $payment)
                                 <tr>
                                     <td class="cell">{{ $payment->reference }}</td>
-                                    <td class="cell">{{ $employe->departement->name ?? 'Non attribué'}}</td>
-                                    <td class="cell">{{ $employe->nom }}</td>
-                                    <td class="cell">{{ $employe->prenom }}</td>
-                                    <td class="cell">{{ $employe->email }}</td>
-                                    <td class="cell">{{ $employe->contact }}</td>
-                                    <td class="cell"><span class="badge bg-info"> {{ $employe->montant_journalier * 31 }} euros</span></td>
+                                    <td class="cell">{{ $payment->employe->nom }} {{ $payment->employe->prenom }}</td>
+                                    <td class="cell">{{ $payment->amount }} euros</td>
+                                    <td class="cell">{{ date('d-m-Y', strtotime($payment->launch_date)) }}</td>
+                                    <td class="cell">{{ $payment->month }}</td>
+                                    <td class="cell">{{ $payment->year }}</td>
+                                    <td class="cell"><span class="badge bg-success">{{ $payment->status }}</span></td>
                                     <td class="cell d-flex">
-                                        <a class="btn btn-sm btn-outline-primary border border-primary" href="{{ route('employe.edit', $employe->id) }}">
+                                        <a class="btn btn-sm btn-outline-primary border border-primary" href="">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                               </svg> Editer
                                         </a>
-                                        <form method ='POST' action="{{ route('employe.delete', $employe->id) }}">
+                                        <form method ='POST' action="">
                                             @csrf
                                             @method('DELETE')
                                             <button type='submit' class="btn btn-sm btn-outline-danger border border-danger" style='margin-left:5px'><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

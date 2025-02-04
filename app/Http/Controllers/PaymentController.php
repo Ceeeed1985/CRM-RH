@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Stringable;
+use Carbon\Carbon;
 use App\Models\Payment;
+use App\Models\Employee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Configuration;
-use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -46,8 +49,39 @@ class PaymentController extends Controller
         
         //Récupération de l'année en cours
         $currentYear = Carbon::now()->format('Y');
-        $currentDate = $currentMonthInFrench . ' ' . $currentYear;
-        dd($currentDate);
+
+
+        //Récupérer liste employés pas encore payés (mois en cours)
+        $employes = Employee::whereDoesntHave('payments', function($query) use($currentMonthInFrench, $currentYear){
+            $query->where('month', '=', $currentMonthInFrench)->where('year', '=', $currentYear);
+        })->get();
+
+        if($employes->count() === 0){
+            return redirect()->back()->with('error_message', 'Tous les employés ont déjà été payés pour le mois de '. $currentMonthInFrench .'.');
+        }
+
+        //Faire les paiements
+        foreach($employes as $employe){
+            $hasBeenPaidThisMonth = $employe->payments()->where('month', '=', $currentMonthInFrench)->where('year', '=', $currentYear)->exists();
+
+            if(!$hasBeenPaidThisMonth){
+                $salaire = $employe->montant_journalier * 31;
+                $payment = new Payment([
+                    'reference' => strtoupper(Str::random(10)),
+                    'employee_id' => $employe->id,
+                    'amount'=>$salaire,
+                    'launch_date'=>now(),
+                    'done_time'=>now(),
+                    'status'=>'SUCCESS',
+                    'month'=>$currentMonthInFrench,
+                    'year'=>$currentYear,
+                ]);
+
+                $payment->save();
+            }
+        }
+
+        return redirect()->back()->with('success_message', 'Paiement des employés effectué pour le mois de '. $currentMonthInFrench .'.');
 
     }
 

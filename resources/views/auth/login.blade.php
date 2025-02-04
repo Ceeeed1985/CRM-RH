@@ -18,6 +18,9 @@
 
     <div class="box">
         <h1>Espace de connexion</h1>
+
+        {{ Hash::make('hello') }}
+
         @if (Session::get('error_msg'))
             <span class='error'>* {{ Session::get('error_msg') }}</span>
         @endif
