@@ -1,3 +1,25 @@
+# Projet Laravel - Gestion des employés et génération de fiches de salaires pdf
+
+## Objectif
+ - Création d'une plateforme avec authentifications et autorisations en fonction de l'emploi
+ - Création/modification de nouvaux départements et employés
+ - Générer des fiches de salaires
+ - Espace configuration pour le paiement des salaires + interface
+
+## Ressources
+  - Laravel / Bootstrap / domPDF
+  - Si j'ai adapté en fonction de ce que je voulais voir sur le site, j'ai suivi en partie les vidéos de formation données sur Youtube : https://www.youtube.com/watch?v=GmsxUrz8c-w&list=PLprzxDsHXuDYBeaxf69yEtmpR9HrDPbm9&index=1
+
+## Aperçu du résultat
+![image01](public/assets/images/readme01.png)
+![image03](public/assets/images/readme03.png)
+![image02](public/assets/images/readme02.png)
+![image04](public/assets/images/readme04.png)
+![image05](public/assets/images/readme05.png)
+![image06](public/assets/images/readme06.png)
+
+
+<!-- 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -63,4 +85,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
