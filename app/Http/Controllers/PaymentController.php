@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Stringable;
 use Carbon\Carbon;
 use App\Models\Payment;
@@ -9,6 +10,9 @@ use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Configuration;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
+use PhpParser\Node\Stmt\TryCatch;
 
 class PaymentController extends Controller
 {
@@ -28,6 +32,7 @@ class PaymentController extends Controller
     }
 
     public function initPayment() {
+
         $monthMapping = [
             'JANUARY' => 'JANVIER',
             'FEBRUARY' => 'FÉVRIER',
@@ -85,6 +90,18 @@ class PaymentController extends Controller
 
     }
 
+    public function downloadInvoice(Payment $payment){
+        try {
+            $fullPaymentInfo = Payment::with('employe')->find($payment->id);
+            //Generer une vue
+            // return view('payments.invoice', compact('fullPaymentInfo'));
+            $pdf = FacadePdf::loadView('payments.invoice', compact('fullPaymentInfo'));
+            return $pdf->download('facture_'.$fullPaymentInfo->employe->nom.'_'.$fullPaymentInfo->employe->prenom.'.pdf');
+
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est survenue lors de la création du pdf");
+        }
+    }
 
 
 }

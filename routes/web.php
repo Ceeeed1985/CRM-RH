@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function(){
     Route::prefix('payment')->group(function(){
         Route::get('/', [PaymentController::class, 'index'])->name('payments');
         Route::get('/make', [PaymentController::class, 'initPayment'])->name('payment.init');
+        Route::get('/download-invoice/{payment}', [PaymentController::class, 'downloadInvoice'])->name('payment.download');
     });
 });
 
