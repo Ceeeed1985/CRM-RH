@@ -1,6 +1,9 @@
 <?php
 
+use App\Helpers\ConfigHelper;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
 
 return [
 
@@ -194,7 +197,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -209,7 +212,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+        'AppNameGetter' => ConfigHelper::class,
+        ])->toArray(),
 
 ];
